@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Covid-19_updates</string>
+    <string name="app_name">Covid-19</string>
     <string-array name="countries_array">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -229,8 +229,6 @@
         <item>Vatican</item>
         <item>Venezuela</item>
         <item>Vietnam</item>
-        <item>Wallis and Futuna</item>
-        <item>Western Sahara</item>
         <item>Yemen</item>
         <item>Zambia</item>
         <item>Zimbabwe</item>
