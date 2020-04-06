@@ -43,16 +43,17 @@ public class CountryList extends AppCompatActivity {
 
     private RequestQueue mQueue;
     private ListView listView;
-    private ArrayList<String> arrayList;
+    private ArrayList<Country> arrayList;
     private ArrayAdapter arrayAdapter;
     private String[] countryNames;
+    private CountryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_list);
 
         listView = (ListView) findViewById(R.id.theList);
-        arrayList = new ArrayList<String>();
+        arrayList = new ArrayList<Country>();
 
 //        arrayList.add("Hey");
 //        arrayList.add("this");
@@ -104,15 +105,22 @@ public class CountryList extends AppCompatActivity {
                         JSONObject nestedObj = response.getJSONObject(i);
 //                        JSONObject countryInfo = nestedObj.getJSONObject("countryInfo");
 //                        Toast.makeText(MainActivity.this, countryInfo.getString("iso3"), Toast.LENGTH_SHORT).show();
-                        arrayList.add(nestedObj.getString("country"));
+                        //arrayList.add(nestedObj.getString("country"));
+                        Country c = new Country();
+                        c.setCountryname(nestedObj.getString("country"));
+                        arrayList.add(c);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                Collections.sort(arrayList);
+               // Collections.sort(arrayList);
                 dialog.dismiss();
-                arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
-                listView.setAdapter(arrayAdapter);
+               // arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
+                //listView.setAdapter(arrayAdapter);
+                adapter = new CountryAdapter(CountryList.this, arrayList);
+                listView.setAdapter(adapter);
+
             }
         }, new Response.ErrorListener() {
             @Override
