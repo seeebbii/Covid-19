@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -36,6 +37,7 @@ import libs.mjn.prettydialog.PrettyDialogCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class CountryList extends AppCompatActivity {
 
@@ -52,20 +54,20 @@ public class CountryList extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.theList);
         arrayList = new ArrayList<String>();
 
-        arrayList.add("Hey");
-        arrayList.add("this");
-        arrayList.add("is");
-        arrayList.add("just");
-        arrayList.add("for");
-        arrayList.add("testing");
-        arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
-        listView.setAdapter(arrayAdapter);
+//        arrayList.add("Hey");
+//        arrayList.add("this");
+//        arrayList.add("is");
+//        arrayList.add("just");
+//        arrayList.add("for");
+//        arrayList.add("testing");
+//        arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
+//        listView.setAdapter(arrayAdapter);
 
 
         // IGNORE ALL OF THIS
         mQueue = Volley.newRequestQueue(this);
         String url = "https://corona.lmao.ninja/countries";
-        //jsonArrReqString(url);
+        jsonArrReqString(url);
 
     }
 
@@ -91,30 +93,31 @@ public class CountryList extends AppCompatActivity {
     }
 
     private void jsonArrReqString(String url) {
+        final ProgressDialog dialog = new ProgressDialog(CountryList.this);
+        dialog.setMessage("Loading please wait...");
+        dialog.show();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                int counter = 0;
                 for(int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject nestedObj = response.getJSONObject(i);
-                        countryNames [i] = nestedObj.getString("country");
-                        counter++;
-                        //arrayList.add(countryNames[i]);
+//                        JSONObject countryInfo = nestedObj.getJSONObject("countryInfo");
+//                        Toast.makeText(MainActivity.this, countryInfo.getString("iso3"), Toast.LENGTH_SHORT).show();
+                        arrayList.add(nestedObj.getString("country"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                //arrayList.addAll(Arrays.asList(countryNames));
-
-                Toast.makeText(CountryList.this, arrayList.size() + "", Toast.LENGTH_SHORT).show();
-
-
+                Collections.sort(arrayList);
+                dialog.dismiss();
+                arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
+                listView.setAdapter(arrayAdapter);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CountryList.this, error.getMessage() + "", Toast.LENGTH_SHORT).show();
+                //data.setText(error.getMessage());
             }
         });
         mQueue.add(request);
