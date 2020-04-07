@@ -169,8 +169,8 @@ public class CountryList extends AppCompatActivity {
         try{
             char letterOfFirst ;
             char letterOfSecond ;
-            for(int i = 0 ; i < 211; i++){
-                for(int j = i + 1; j < 211; j++){
+            for(int i = 0 ; i < c.length; i++){
+                for(int j = i + 1; j < c.length; j++){
                     letterOfFirst = c[i].getCountryname().charAt(0);
                     letterOfSecond = c[j].getCountryname().charAt(0);
                     if(letterOfFirst > letterOfSecond ){
