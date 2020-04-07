@@ -77,9 +77,9 @@ public class CountryList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final PrettyDialog prettyDialog =  new PrettyDialog(CountryList.this);
 
-                prettyDialog.setTitle(c[position].getCountryname())
-                        .setMessage("Total Cases: " + c[position].getTotalcase() + "\n" + "Total Deaths: " + c[position].getTotaldeaths()
-                        + "\n" + "Active Cases: " + c[position].getActivecases() + "\n" + "Total Recovered: " + c[position].getTotalrecovered())
+                prettyDialog.setTitle(adapter.getItem(position).getCountryname())
+                        .setMessage("Total Cases: " + adapter.getItem(position).getTotalcase() + "\n" + "Total Deaths: " + adapter.getItem(position).getTotaldeaths()
+                        + "\n" + "Active Cases: " + adapter.getItem(position).getActivecases() + "\n" + "Total Recovered: " + adapter.getItem(position).getTotalrecovered())
                         .setIcon(R.drawable.searchbutton)
                         .addButton(
                                 "OK",     // button text
@@ -111,10 +111,8 @@ public class CountryList extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(final String newText) {
-                Toast.makeText(CountryList.this, newText+"", Toast.LENGTH_SHORT).show();
                 adapter.getFilter().filter(newText);
                 return false;
             }
