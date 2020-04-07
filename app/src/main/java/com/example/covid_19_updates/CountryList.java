@@ -46,9 +46,9 @@ public class CountryList extends AppCompatActivity {
     private RequestQueue mQueue;
     private ListView listView;
     private ArrayList<Country> arrayList;
-    private ArrayAdapter arrayAdapter;
     private CountryAdapter adapter;
     private Country[] c = new Country[250];
+    public  ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,23 +145,45 @@ public class CountryList extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-               // Collections.sort(arrayList);
                 dialog.dismiss();
-               // arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
-                //listView.setAdapter(arrayAdapter);
-
                 adapter = new CountryAdapter(CountryList.this, arrayList);
                 listView.setAdapter(adapter);
-
+               // sortListView();
             }
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //data.setText(error.getMessage());
+                Toast.makeText(CountryList.this, error.getMessage() + "", Toast.LENGTH_SHORT).show();
             }
         });
         mQueue.add(request);
     }
 
+    private void sortListView() {
+        Country temp;
+        arrayList.clear();
+        listView.setAdapter(adapter);
+        char letterOfFirst ;
+        char letterOfSecond ;
+        for(int i = 0 ; i < c.length; i++){
+            for(int j = i + 1; j < c.length; j++){
+                letterOfFirst = c[i].getCountryname().charAt(0);
+                letterOfSecond = c[j].getCountryname().charAt(0);
+                if(letterOfFirst > letterOfSecond ){
+                    temp = c[i];
+                    c[i] = c[j];
+                    c[j] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < c.length; i++){
+            arrayList.add(c[i]);
+        }
+        dialog.dismiss();
+//                adapter = new CountryAdapter(CountryList.this, arrayList);
+        listView.setAdapter(adapter);
+    }
 
 }
