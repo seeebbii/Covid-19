@@ -39,6 +39,7 @@ import libs.mjn.prettydialog.PrettyDialogCallback;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class CountryList extends AppCompatActivity {
 
@@ -113,6 +114,7 @@ public class CountryList extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(final String newText) {
+                Toast.makeText(CountryList.this, newText+"", Toast.LENGTH_SHORT).show();
                 adapter.getFilter().filter(newText);
                 return false;
             }

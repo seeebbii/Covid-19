@@ -2,7 +2,7 @@ package com.example.covid_19_updates;
 
 import android.widget.ImageView;
 
-public class Country {
+public class Country{
 
     private String countryname;
     private int totalcase, totaldeaths, totalrecovered, activecases;
