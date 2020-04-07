@@ -47,7 +47,7 @@ public class CountryList extends AppCompatActivity {
     private ListView listView;
     private ArrayList<Country> arrayList;
     private CountryAdapter adapter;
-    private Country[] c = new Country[250];
+    private Country[] c = new Country[211];
     public  ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +141,7 @@ public class CountryList extends AppCompatActivity {
                         c[i].setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
                         c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
                         arrayList.add(c[i]);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -148,7 +149,7 @@ public class CountryList extends AppCompatActivity {
                 dialog.dismiss();
                 adapter = new CountryAdapter(CountryList.this, arrayList);
                 listView.setAdapter(adapter);
-               // sortListView();
+               sortListView();
             }
 
 
@@ -165,25 +166,29 @@ public class CountryList extends AppCompatActivity {
         Country temp;
         arrayList.clear();
         listView.setAdapter(adapter);
-        char letterOfFirst ;
-        char letterOfSecond ;
-        for(int i = 0 ; i < c.length; i++){
-            for(int j = i + 1; j < c.length; j++){
-                letterOfFirst = c[i].getCountryname().charAt(0);
-                letterOfSecond = c[j].getCountryname().charAt(0);
-                if(letterOfFirst > letterOfSecond ){
-                    temp = c[i];
-                    c[i] = c[j];
-                    c[j] = temp;
+        try{
+            char letterOfFirst ;
+            char letterOfSecond ;
+            for(int i = 0 ; i < 211; i++){
+                for(int j = i + 1; j < 211; j++){
+                    letterOfFirst = c[i].getCountryname().charAt(0);
+                    letterOfSecond = c[j].getCountryname().charAt(0);
+                    if(letterOfFirst > letterOfSecond ){
+                        temp = c[i];
+                        c[i] = c[j];
+                        c[j] = temp;
+                    }
                 }
             }
-        }
-        for (int i = 0; i < c.length; i++){
-            arrayList.add(c[i]);
-        }
-        dialog.dismiss();
-//                adapter = new CountryAdapter(CountryList.this, arrayList);
-        listView.setAdapter(adapter);
-    }
+            for (int i = 0; i < c.length; i++){
+                arrayList.add(c[i]);
+                //Toast.makeText(CountryList.this, c[i].getCountryname(),Toast.LENGTH_LONG).show();
 
+            }
+            dialog.dismiss();
+            listView.setAdapter(adapter);
+        } catch (Exception e){
+            //Toast.makeText(CountryList.this, e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
 }

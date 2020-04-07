@@ -4,7 +4,7 @@ import android.widget.ImageView;
 
 public class Country{
 
-    private String countryname;
+    private  String countryname;
     private int totalcase, totaldeaths, totalrecovered, activecases;
     private ImageView flag;
     private String flagUrl;
