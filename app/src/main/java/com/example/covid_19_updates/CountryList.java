@@ -47,7 +47,7 @@ public class CountryList extends AppCompatActivity {
     private ArrayList<Country> arrayList;
     private ArrayAdapter arrayAdapter;
     private CountryAdapter adapter;
-    private Country c ;
+    private Country[] c = new Country[250];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +76,10 @@ public class CountryList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final PrettyDialog prettyDialog =  new PrettyDialog(CountryList.this);
 
-                prettyDialog.setTitle(id + "")
-                        .setMessage("")
-                        .setIcon(R.drawable.background_dialog)
+                prettyDialog.setTitle(c[position].getCountryname())
+                        .setMessage("Total Cases: " + c[position].getTotalcase() + "\n" + "Total Deaths: " + c[position].getTotaldeaths()
+                        + "\n" + "Active Cases: " + c[position].getActivecases() + "\n" + "Total Recovered: " + c[position].getTotalrecovered())
+                        .setIcon(R.drawable.searchbutton)
                         .addButton(
                                 "OK",     // button text
                                 R.color.pdlg_color_white,  // button text color
@@ -130,14 +131,14 @@ public class CountryList extends AppCompatActivity {
                     try {
                         JSONObject nestedObj = response.getJSONObject(i);
                         JSONObject countryInfo = nestedObj.getJSONObject("countryInfo");
-                        c = new Country();
-                        c.setFlagUrl(countryInfo.getString("flag"));
-                        c.setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
-                        c.setActivecases(Integer.parseInt(nestedObj.getString("active")));
-                        c.setCountryname(nestedObj.getString("country"));
-                        c.setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
-                        c.setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
-                        arrayList.add(c);
+                        c[i] = new Country();
+                        c[i].setFlagUrl(countryInfo.getString("flag"));
+                        c[i].setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
+                        c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));
+                        c[i].setCountryname(nestedObj.getString("country"));
+                        c[i].setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
+                        c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
+                        arrayList.add(c[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
