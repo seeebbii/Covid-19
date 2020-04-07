@@ -7,6 +7,15 @@ public class Country {
     private String countryname;
     private int totalcase, totaldeaths, totalrecovered, activecases;
     private ImageView flag;
+    private String flagUrl;
+
+    public String getFlagUrl() {
+        return flagUrl;
+    }
+
+    public void setFlagUrl(String flagUrl) {
+        this.flagUrl = flagUrl;
+    }
 
     public ImageView getFlag() {
         return flag;
@@ -55,4 +64,5 @@ public class Country {
     public void setActivecases(int activecases) {
         this.activecases = activecases;
     }
+
 }

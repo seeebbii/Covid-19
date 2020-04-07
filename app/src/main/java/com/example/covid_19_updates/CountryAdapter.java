@@ -40,5 +40,19 @@ public class CountryAdapter extends ArrayAdapter<Country>
         return convertView;
     }
 
+    @Override
+    public int getCount() {
+        return list.size();
+    }
 
+    @Nullable
+    @Override
+    public Country getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 }
