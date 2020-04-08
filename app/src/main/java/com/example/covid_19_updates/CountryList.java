@@ -173,13 +173,13 @@ public class CountryList extends AppCompatActivity {
 
                         // IMAGE REQUEST
                         final int finalI = i;
-                        ImageView temp = null;
-                        final ImageView finalTemp = temp;
+
                         ImageRequest imageRequest = new ImageRequest(c[i].getFlagUrl(), new Response.Listener<Bitmap>() {
                             @Override
                             public void onResponse(Bitmap bitmap) {
-                                finalTemp.setImageBitmap(bitmap);
-                                c[finalI].setFlag(finalTemp);
+                                Bitmap temp = null;
+                                temp = bitmap;
+                                c[finalI].setFlag(temp);
                             }
                         }, 0, 0, null, null, new Response.ErrorListener() {
                             @Override

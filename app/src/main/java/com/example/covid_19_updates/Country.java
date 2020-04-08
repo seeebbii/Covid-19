@@ -1,12 +1,15 @@
 package com.example.covid_19_updates;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
+
+import java.math.BigInteger;
 
 public class Country{
 
     private  String countryname;
     private Integer totalcase, totaldeaths, totalrecovered, activecases;
-    private ImageView flag;
+    private Bitmap flag;
     private String flagUrl;
 
     public String getFlagUrl() {
@@ -17,11 +20,11 @@ public class Country{
         this.flagUrl = flagUrl;
     }
 
-    public ImageView getFlag() {
+    public Bitmap getFlag() {
         return flag;
     }
 
-    public void setFlag(ImageView flag) {
+    public void setFlag(Bitmap flag) {
         this.flag = flag;
     }
 

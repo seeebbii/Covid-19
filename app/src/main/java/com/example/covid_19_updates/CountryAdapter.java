@@ -41,6 +41,7 @@ public class CountryAdapter extends ArrayAdapter<Country>
         ImageView img = convertView.findViewById(R.id.imgview);
 
         countryname.setText(list.get(position).getCountryname());
+        img.setImageBitmap(list.get(position).getFlag());
 
         return convertView;
     }
