@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CountryAdapter extends ArrayAdapter<Country>
 {
@@ -23,6 +24,10 @@ public class CountryAdapter extends ArrayAdapter<Country>
         super(context, R.layout.demo_layour, countries);
         this.context = context;
         this.list = countries;
+    }
+
+    public CountryAdapter(CountryList countryList, int demo_layour, List<Country> filteredOutput) {
+        super(countryList, demo_layour);
     }
 
 
