@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FindMe"
+    android:id="@+id/constraint">
+
+    <Button
+        android:id="@+id/generateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="generate my ip"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ipTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:hint="Your Geo ip will be displayed here..."
+        android:textSize="18sp"
+        android:layout_below="@+id/generateBtn"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/countryNameTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Country"
+        android:layout_below="@+id/ipTxtView"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ipTxtView" />
+
+    <Button
+        android:id="@+id/incorrectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/countryNameTxtView"
+        android:layout_marginEnd="80dp"
+        android:text="incorrect"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/correctBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countryNameTxtView"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/correctBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/countryNameTxtView"
+        android:layout_below="@+id/countryNameTxtView"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="80dp"
+        android:text="correct"
+        android:visibility="gone"
+        tools:visibility="visible" />
+    
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/incorrectBtn"
+        android:layout_marginTop="20dp"
+        android:id="@+id/listView"/>
+
+</RelativeLayout>
