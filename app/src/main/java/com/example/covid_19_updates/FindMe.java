@@ -79,7 +79,7 @@ public class FindMe extends AppCompatActivity {
                 correctBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
