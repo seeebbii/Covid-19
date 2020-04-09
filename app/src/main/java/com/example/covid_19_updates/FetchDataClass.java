@@ -48,7 +48,7 @@ public class FetchDataClass extends AsyncTask<Void, Void, Void> {
     @Override
     public void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        FindMe.ipDisplay.setText(ip);
+        //FindMe.ipDisplay.setText(ip);
     }
 
 

@@ -2,6 +2,7 @@ package com.example.covid_19_updates;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
 
         mQueue = Volley.newRequestQueue(this);
-        jsonParse("https://corona.lmao.ninja/all");
 
+        jsonParse("https://corona.lmao.ninja/all");
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,5 +102,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+
     }
 }

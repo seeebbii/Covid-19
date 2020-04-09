@@ -36,7 +36,6 @@ public class FindMe extends AppCompatActivity {
     public Button correctBtn;
     public Button incorrectBtn;
     public ListView listView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +51,12 @@ public class FindMe extends AppCompatActivity {
         generateBtn = findViewById(R.id.generateBtn);
         ipDisplay = findViewById(R.id.ipTxtView);
 
+        final FetchDataClass fetchData = new FetchDataClass();
+        fetchData.execute();
         generateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FetchDataClass fetchData = new FetchDataClass();
-                fetchData.execute();
+                ipDisplay.setText(fetchData.getIp());
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -67,30 +67,37 @@ public class FindMe extends AppCompatActivity {
                // String url = "https://tools.keycdn.com/geo.json?host=";
                 parseJson("https://tools.keycdn.com/geo.json?host=", ipAdress);
 
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                correctBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+//                        String url = "https://corona.lmao.ninja/countries/";
+                        try {
+                            countryFetch("https://corona.lmao.ninja/countries/");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
-                correctBtn.setVisibility(View.VISIBLE);
-                incorrectBtn.setVisibility(View.VISIBLE);
-//                correctBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
-//                        try {
-//                            Thread.sleep(1000);
-//                        } catch (InterruptedException e) {
-//                            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
-//                        }
-////                        String url = "https://corona.lmao.ninja/countries/";
-////                        countryFetch(url);
-//
-//                    }
-//                });
-//
-//                incorrectBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(FindMe.this, "Sorry we cannot find your location.", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                    }
+                });
+
+                incorrectBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(FindMe.this, "Sorry we cannot find your location.", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
             }
         });
 
@@ -101,9 +108,9 @@ public class FindMe extends AppCompatActivity {
 
     private void parseJson(String url, String ip){
         Toast.makeText(FindMe.this, "Please wait we are calculating..." ,Toast.LENGTH_LONG).show();
-        String finalUrl = url +ip;
-        Toast.makeText(FindMe.this, finalUrl ,Toast.LENGTH_LONG).show();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, finalUrl, null, new Response.Listener<JSONObject>() {
+//        String finalUrl = url.concat(ip);
+        //Toast.makeText(FindMe.this, url+ip ,Toast.LENGTH_LONG).show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url+ip, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 String data = "";
@@ -112,7 +119,8 @@ public class FindMe extends AppCompatActivity {
                     JSONObject geo = nestedObj.getJSONObject("geo");
                     country = geo.getString("country_name");
                     countryName.setText(country);
-
+                    correctBtn.setVisibility(View.VISIBLE);
+                    incorrectBtn.setVisibility(View.VISIBLE);
                     Thread.sleep(1000);
                 } catch (JSONException | InterruptedException e) {
                     countryName.setText(e.getMessage());
@@ -126,13 +134,14 @@ public class FindMe extends AppCompatActivity {
         mQueue.add(request);
     }
 
-//    public void countryFetch(String url){
-//        try{
-//            //String finalUrl = url + countryName.getText().toString() +"?strict=true";
-//            Toast.makeText(FindMe.this, "finalUrl", Toast.LENGTH_SHORT).show();
-//        }catch (Exception e){
-//            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
+    public void countryFetch(String url) throws InterruptedException {
+        Thread.sleep(2000);
+        try{
+            //String finalUrl = url + countryName.getText().toString() +"?strict=true";
+            Toast.makeText(FindMe.this, url + countryName.getText().toString(), Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
