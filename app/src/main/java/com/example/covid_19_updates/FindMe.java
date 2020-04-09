@@ -68,6 +68,7 @@ public class FindMe extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 ipAdress = fetchData.getIp();
+//                Toast.makeText(FindMe.this, ipAdress, Toast.LENGTH_LONG).show();
                // String url = "https://tools.keycdn.com/geo.json?host=";
                 parseJson("https://tools.keycdn.com/geo.json?host=", ipAdress);
 
@@ -79,7 +80,7 @@ public class FindMe extends AppCompatActivity {
                 correctBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
