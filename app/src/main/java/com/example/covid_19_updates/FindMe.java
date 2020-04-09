@@ -63,7 +63,7 @@ public class FindMe extends AppCompatActivity {
             public void onClick(View v) {
                 ipDisplay.setText(fetchData.getIp());
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -150,7 +150,7 @@ public class FindMe extends AppCompatActivity {
                     countryName.setText(country);
                     correctBtn.setVisibility(View.VISIBLE);
                     incorrectBtn.setVisibility(View.VISIBLE);
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (JSONException | InterruptedException e) {
                     countryName.setText(e.getMessage());
                 }
