@@ -73,12 +73,24 @@
         android:text="correct"
         android:visibility="gone"
         tools:visibility="visible" />
-    
-    <ListView
+
+    <TextView
+        android:id="@+id/fetchedInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/incorrectBtn"
+        android:layout_below="@+id/correctBtn"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:text="Country info fetched"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fetchedInfo"
+        android:layout_marginTop="35dp"
         android:id="@+id/listView"/>
 
 </RelativeLayout>
