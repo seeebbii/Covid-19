@@ -3,13 +3,15 @@ package com.example.covid_19_updates;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
+import com.squareup.picasso.RequestCreator;
+
 import java.math.BigInteger;
 
 public class Country{
 
     private  String countryname;
     private Integer totalcase, totaldeaths, totalrecovered, activecases;
-    private Bitmap flag;
+    private ImageView flag;
     private String flagUrl;
 
     public String getFlagUrl() {
@@ -20,11 +22,11 @@ public class Country{
         this.flagUrl = flagUrl;
     }
 
-    public Bitmap getFlag() {
+    public ImageView getFlag() {
         return flag;
     }
 
-    public void setFlag(Bitmap flag) {
+    public void setFlag(ImageView flag) {
         this.flag = flag;
     }
 

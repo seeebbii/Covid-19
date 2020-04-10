@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -174,7 +175,6 @@ public class FindMe extends AppCompatActivity {
                     c.setTotaldeaths(Integer.parseInt(response.getString("deaths")));
                     c.setTotalrecovered(Integer.parseInt(response.getString("recovered")));
                     c.setActivecases(Integer.parseInt(response.getString("active")));
-
                     arrayList.add(c);
                 } catch (JSONException e) {
                     e.printStackTrace();

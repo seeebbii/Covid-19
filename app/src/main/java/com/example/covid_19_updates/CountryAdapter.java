@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -41,7 +43,6 @@ public class CountryAdapter extends ArrayAdapter<Country>
         ImageView img = convertView.findViewById(R.id.imgview);
 
         countryname.setText(list.get(position).getCountryname());
-        img.setImageBitmap(list.get(position).getFlag());
 
         return convertView;
     }

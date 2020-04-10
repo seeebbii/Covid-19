@@ -33,6 +33,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -161,6 +163,7 @@ public class CountryList extends AppCompatActivity {
         final ProgressDialog dialog = new ProgressDialog(CountryList.this);
         dialog.setMessage("Loading please wait...");
         dialog.show();
+        final RequestCreator[] tempImage = new RequestCreator[1];
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -170,29 +173,13 @@ public class CountryList extends AppCompatActivity {
                         JSONObject countryInfo = nestedObj.getJSONObject("countryInfo");
                         c[i] = new Country();
                         c[i].setFlagUrl(countryInfo.getString("flag"));
-
-                        // IMAGE REQUEST
-                        final int finalI = i;
-
-                        ImageRequest imageRequest = new ImageRequest(c[i].getFlagUrl(), new Response.Listener<Bitmap>() {
-                            @Override
-                            public void onResponse(Bitmap bitmap) {
-                                Bitmap temp = null;
-                                temp = bitmap;
-                                c[finalI].setFlag(temp);
-                            }
-                        }, 0, 0, null, null, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(CountryList.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
                         c[i].setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
                         c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));
                         c[i].setCountryname(nestedObj.getString("country"));
                         c[i].setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
-                        c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
+//                        c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
+//                        tempImage[0] = Picasso.get().load(c[i].getFlagUrl());
+//                        c[i].setFlag(tempImage[0]);
                         arrayList.add(c[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -212,6 +199,7 @@ public class CountryList extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+
     }
 
     private void sortListView() {
