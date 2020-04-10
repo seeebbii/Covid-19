@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,11 +35,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView totalCases, totalDeaths, totalRecovered, activeCases;
     public static TextView affectedCountries;
     private RequestQueue mQueue;
-    private ImageButton searchButton;
+    private Button searchButton;
     private Button findBtn;
+    public NumberFormat myFormat;
 
     // Update able variables
-    String tCase, tDeath, tRec, active, affCountries;
+    int tCase;
+    int tDeath;
+    int tRec;
+    int active;
+    int affCountries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
         activeCases = findViewById(R.id.activeCases);
         affectedCountries = findViewById(R.id.affectedCountries);
 
-        searchButton = findViewById(R.id.searchButton);
+        myFormat = NumberFormat.getInstance();
+        myFormat.setGroupingUsed(true);
+
+        searchButton =  findViewById(R.id.searchButton);
 
         mQueue = Volley.newRequestQueue(this);
 
@@ -81,17 +90,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try{
-                            tCase = response.getString("cases");
-                            tDeath = response.getString("deaths");
-                            tRec = response.getString("recovered");
-                            active = response.getString("active");
-                            affCountries = response.getString("affectedCountries");
+                            tCase = response.getInt("cases");
+                            tDeath = response.getInt("deaths");
+                            tRec = response.getInt("recovered");
+                            active = response.getInt("active");
+                            affCountries = response.getInt("affectedCountries");
                             // Updating
-                            totalCases.setText(tCase);
-                            totalDeaths.setText(tDeath);
-                            totalRecovered.setText(tRec);
-                            activeCases.setText(active);
-                            affectedCountries.setText(affCountries);
+                            totalCases.setText(myFormat.format(tCase));
+                            totalDeaths.setText(myFormat.format(tDeath));
+                            totalRecovered.setText(myFormat.format(tRec));
+                            activeCases.setText(myFormat.format(active));
+                            affectedCountries.setText(myFormat.format(affCountries));
 
                         }catch (Exception e){
                             e.printStackTrace();
