@@ -24,13 +24,15 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView totalCases, totalDeaths, totalRecovered, activeCases, affectedCountries;
+    private TextView totalCases, totalDeaths, totalRecovered, activeCases;
+    public static TextView affectedCountries;
     private RequestQueue mQueue;
     private ImageButton searchButton;
     private Button findBtn;

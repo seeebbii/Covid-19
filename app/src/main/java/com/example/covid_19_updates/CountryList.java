@@ -51,7 +51,7 @@ public class CountryList extends AppCompatActivity {
     private ListView listView;
     private ArrayList<Country> arrayList;
     private CountryAdapter adapter;
-    public static Country[] c = new Country[211];
+    public static Country[] c = new Country[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     public  ProgressDialog dialog;
     public  SearchView searchView;
     @Override
