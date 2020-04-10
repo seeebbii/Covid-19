@@ -6,6 +6,7 @@ import libs.mjn.prettydialog.PrettyDialogCallback;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,9 +19,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +45,8 @@ public class FindMe extends AppCompatActivity {
     public Button incorrectBtn;
     public ListView listView;
     public TextView fetchedInfo;
+    public Country c;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,63 +55,59 @@ public class FindMe extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         arrayList = new ArrayList<Country>();
-
         correctBtn = findViewById(R.id.correctBtn);
         incorrectBtn = findViewById(R.id.incorrectBtn);
         countryName = findViewById(R.id.countryNameTxtView);
-        generateBtn = findViewById(R.id.generateBtn);
         fetchedInfo = findViewById(R.id.fetchedInfo);
         ipDisplay = findViewById(R.id.ipTxtView);
 
         final FetchDataClass fetchData = new FetchDataClass();
         fetchData.execute();
-        generateBtn.setOnClickListener(new View.OnClickListener() {
+
+        try {
+            Thread.sleep(2000);
+            Toast.makeText(FindMe.this, "We are calculating information...", Toast.LENGTH_LONG).show();
+            ipDisplay.setText(fetchData.getIp());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(2000);
+            ipAdress = fetchData.getIp();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        parseJson("https://tools.keycdn.com/geo.json?host=", ipAdress);
+
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        correctBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ipDisplay.setText(fetchData.getIp());
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ipAdress = fetchData.getIp();
-//                Toast.makeText(FindMe.this, ipAdress, Toast.LENGTH_LONG).show();
-               // String url = "https://tools.keycdn.com/geo.json?host=";
-                parseJson("https://tools.keycdn.com/geo.json?host=", ipAdress);
-
+                //Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-                correctBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
 //                        String url = "https://corona.lmao.ninja/countries/";
-                        try {
-                            countryFetch("https://corona.lmao.ninja/countries/");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                countryFetch("https://corona.lmao.ninja/countries/");
 
-                    }
-                });
-
-                incorrectBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(FindMe.this, "Sorry we cannot find your location.", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
             }
         });
+
+        incorrectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(FindMe.this, "Sorry we cannot find your location.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,16 +132,9 @@ public class FindMe extends AppCompatActivity {
                         .show();
             }
         });
-
-
     }
 
-
-
     private void parseJson(String url, String ip){
-        Toast.makeText(FindMe.this, "Please wait we are calculating..." ,Toast.LENGTH_SHORT).show();
-//        String finalUrl = url.concat(ip);
-        //Toast.makeText(FindMe.this, url+ip ,Toast.LENGTH_LONG).show();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url+ip, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -163,38 +159,38 @@ public class FindMe extends AppCompatActivity {
         mQueue.add(request);
     }
 
-    public void countryFetch(String url) throws InterruptedException {
-        Thread.sleep(2000);
-        try{
-            //String finalUrl = url + countryName.getText().toString() +"?strict=true";
-            for(int i = 0; i < CountryList.c.length; i++){
-                if(countryName.getText().toString().equals(CountryList.c[i].getCountryname())){
-                    arrayList.add(CountryList.c[i]);
-                    fetchedInfo.setVisibility(View.VISIBLE);
-                }
-            }
-            adapter = new CountryAdapter(FindMe.this, arrayList);
-            listView.setAdapter(adapter);
-        }catch (Exception e){
-            final PrettyDialog prettyDialog =  new PrettyDialog(FindMe.this);
-            prettyDialog.setTitle("Stupid!")
-                    .setMessage("You have to search for your country at least once, don't waste my time...!")
-                    .setIcon(R.drawable.searchbutton)
-                    .addButton(
-                            "OK",     // button text
-                            R.color.pdlg_color_white,  // button text color
-                            R.color.pdlg_color_green,  // button background color
-                            new PrettyDialogCallback() {  // button OnClick listener
-                                @Override
-                                public void onClick() {
-                                    // Do what you gotta do
-                                    prettyDialog.dismiss();
-                                }
-                            }
-                    )
-                    .show();
-            //Toast.makeText(FindMe.this, "You have to search for your country once at least, don't waste my time...!", Toast.LENGTH_LONG).show();
-        }
+    public void countryFetch(String Url) {
+        String url = Url + countryName.getText().toString();
 
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                c = new Country();
+                try {
+                    c.setCountryname(response.getString("country"));
+                    JSONObject nestedObj = response.getJSONObject("countryInfo");
+                    c.setFlagUrl(nestedObj.getString("flag"));
+                    c.setTotalcase(Integer.parseInt(response.getString("cases")));
+                    c.setTotaldeaths(Integer.parseInt(response.getString("deaths")));
+                    c.setTotalrecovered(Integer.parseInt(response.getString("recovered")));
+                    c.setActivecases(Integer.parseInt(response.getString("active")));
+
+                    arrayList.add(c);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                adapter = new CountryAdapter(FindMe.this, arrayList);
+                fetchedInfo.setVisibility(View.VISIBLE);
+                listView.setAdapter(adapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        mQueue.add(request);
     }
 }

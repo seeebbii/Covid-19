@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -13,25 +14,17 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        final ProgressDialog dialog = new ProgressDialog(SplashActivity.this);
-        dialog.setMessage("Loading please wait...");
-        dialog.show();
-
         Thread welcomeThread = new Thread() {
 
             @Override
             public void run() {
                 try {
                     super.run();
-                    sleep(3000);  //Delay of 10 seconds
+                    sleep(3500);  //Delay of 10 seconds
                 } catch (Exception e) {
-
                 } finally {
-
-                    Intent i = new Intent(SplashActivity.this,
-                            MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
-                    dialog.dismiss();
                     finish();
                 }
             }
