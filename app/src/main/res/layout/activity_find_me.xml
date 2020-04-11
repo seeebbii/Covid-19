@@ -27,18 +27,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:paddingTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="200dp"
-            android:textAlignment="center"
             android:layout_height="match_parent"
             android:layout_marginLeft="22dp"
-            android:paddingTop="10dp" />
+            android:paddingTop="10dp"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/ipTxtView"
@@ -56,40 +56,34 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/incorrectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countryNameTxtView"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="80dp"
+            android:text="incorrect"
+            app:layout_constraintEnd_toStartOf="@+id/correctBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countryNameTxtView"
+            tools:visibility="visible" />
 
-
-
+        <Button
+            android:id="@+id/correctBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/countryNameTxtView"
+            android:layout_alignLeft="@+id/countryNameTxtView"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginRight="75dp"
+            android:text="correct"
+            tools:visibility="visible" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/incorrectBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/countryNameTxtView"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="80dp"
-        android:text="incorrect"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/correctBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/countryNameTxtView"
-        tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/correctBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/countryNameTxtView"
-        android:layout_alignLeft="@+id/countryNameTxtView"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginRight="75dp"
-        android:text="correct"
-        android:visibility="gone"
-        tools:visibility="visible" />
 
 
 </LinearLayout>
