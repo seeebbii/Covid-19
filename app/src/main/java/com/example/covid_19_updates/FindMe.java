@@ -39,13 +39,11 @@ public class FindMe extends AppCompatActivity {
     public static TextView ipDisplay;
     private ArrayList<Country> arrayList;
     private CountryAdapter adapter;
-    public TextView countryName;
     private String country = "";
     public String ipAdress = "";
     public Button correctBtn;
     public Button incorrectBtn;
     public ListView listView;
-    public TextView fetchedInfo;
     public Country c;
 
     @Override
@@ -58,8 +56,6 @@ public class FindMe extends AppCompatActivity {
         arrayList = new ArrayList<Country>();
         correctBtn = findViewById(R.id.correctBtn);
         incorrectBtn = findViewById(R.id.incorrectBtn);
-        countryName = findViewById(R.id.countryNameTxtView);
-        fetchedInfo = findViewById(R.id.fetchedInfo);
         ipDisplay = findViewById(R.id.ipTxtView);
 
         final FetchDataClass fetchData = new FetchDataClass();
@@ -86,20 +82,7 @@ public class FindMe extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        correctBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(FindMe.this, "We are loading information...", Toast.LENGTH_LONG).show();
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-//                        String url = "https://corona.lmao.ninja/countries/";
-                countryFetch("https://corona.lmao.ninja/countries/");
 
-            }
-        });
 
         incorrectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,25 +127,30 @@ public class FindMe extends AppCompatActivity {
                     JSONObject nestedObj = response.getJSONObject("data");
                     JSONObject geo = nestedObj.getJSONObject("geo");
                     country = geo.getString("country_name");
-                    countryName.setText(country);
-                    correctBtn.setVisibility(View.VISIBLE);
-                    incorrectBtn.setVisibility(View.VISIBLE);
+
                     Thread.sleep(500);
                 } catch (JSONException | InterruptedException e) {
-                    countryName.setText(e.getMessage());
+                    e.printStackTrace();
                 }
+                countryFetch("https://corona.lmao.ninja/countries/");
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                countryName.setText(error.getMessage());            }
+                error.printStackTrace();
+            }
         });
         mQueue.add(request);
+
     }
 
     public void countryFetch(String Url) {
-        String url = Url + countryName.getText().toString();
-
+        String url = Url + country;
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            Toast.makeText(FindMe.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -181,7 +169,6 @@ public class FindMe extends AppCompatActivity {
                 }
 
                 adapter = new CountryAdapter(FindMe.this, arrayList);
-                fetchedInfo.setVisibility(View.VISIBLE);
                 listView.setAdapter(adapter);
 
             }

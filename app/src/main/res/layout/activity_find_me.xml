@@ -1,45 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FindMe"
-    android:id="@+id/constraint">
+    android:background="#292E39"
+    android:orientation="vertical"
+    tools:context=".FindMe">
 
-    <TextView
-        android:id="@+id/ipTxtView"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="Your Geo ip will be displayed here..."
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_centerHorizontal="true" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/countryNameTxtView"
+        <TextView
+            android:layout_width="246dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Generated from your IP Address"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ipTxtView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:hint="Country"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ipTxtView" />
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="200dp"
+            android:textAlignment="center"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="22dp"
+            android:paddingTop="10dp" />
+
+        <TextView
+            android:id="@+id/ipTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="17dp"
+            android:text="IP value"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/incorrectBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/countryNameTxtView"
         android:layout_marginStart="50dp"
         android:layout_marginTop="52dp"
-        android:layout_below="@+id/countryNameTxtView"
         android:layout_marginEnd="80dp"
         android:text="incorrect"
         android:visibility="gone"
@@ -61,23 +91,5 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/fetchedInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/correctBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Country info fetched"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-    
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/fetchedInfo"
-        android:layout_marginTop="35dp"
-        android:id="@+id/listView"/>
 
-</RelativeLayout>
+</LinearLayout>
