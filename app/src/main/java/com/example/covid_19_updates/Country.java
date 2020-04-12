@@ -13,6 +13,15 @@ public class Country{
     private Integer totalcase, totaldeaths, totalrecovered, activecases;
     private ImageView flag;
     private String flagUrl;
+    private int itemId;
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
 
     public String getFlagUrl() {
         return flagUrl;

@@ -177,8 +177,8 @@ public class CountryList extends AppCompatActivity {
                         c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));
                         c[i].setCountryname(nestedObj.getString("country"));
                         c[i].setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
-                       c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
-//
+                        c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
+
                         arrayList.add(c[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();

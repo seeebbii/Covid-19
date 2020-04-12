@@ -20,6 +20,7 @@ public class CountryAdapter extends ArrayAdapter<Country>
 {
     private Context context;
     private ArrayList<Country> list;
+    public static ImageView img;
 
     public CountryAdapter(Context context, ArrayList<Country> countries)
     {
@@ -40,10 +41,11 @@ public class CountryAdapter extends ArrayAdapter<Country>
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.demo_layour,parent , false);
         TextView countryname = convertView.findViewById(R.id.countryname);
-        ImageView img = convertView.findViewById(R.id.imgview);
+        img = convertView.findViewById(R.id.imgview);
 
         countryname.setText(list.get(position).getCountryname());
         Picasso.get().load(CountryList.c[position].getFlagUrl()).into(img);
+        CountryList.c[position].setItemId(position);
 
         return convertView;
     }
