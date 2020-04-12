@@ -178,8 +178,7 @@ public class CountryList extends AppCompatActivity {
                         c[i].setCountryname(nestedObj.getString("country"));
                         c[i].setTotalrecovered(Integer.parseInt(nestedObj.getString("recovered")));
                        c[i].setTotaldeaths(Integer.parseInt(nestedObj.getString("deaths")));
-//                        tempImage[0] = Picasso.get().load(c[i].getFlagUrl());
-//                        c[i].setFlag(tempImage[0]);
+//
                         arrayList.add(c[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
