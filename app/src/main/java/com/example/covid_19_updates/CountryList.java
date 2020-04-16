@@ -57,8 +57,6 @@ public class CountryList extends AppCompatActivity {
     public static Country[] c = new Country[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     public  ProgressDialog dialog;
     public  SearchView searchView;
-    public ImageView tempFlag;
-    public static ImageView [] flagImages = new ImageView[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,17 +64,6 @@ public class CountryList extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.theList);
         arrayList = new ArrayList<Country>();
-
-//        arrayList.add("Hey");
-//        arrayList.add("this");
-//        arrayList.add("is");
-//        arrayList.add("just");
-//        arrayList.add("for");
-//        arrayList.add("testing");
-//        arrayAdapter = new ArrayAdapter(CountryList.this, android.R.layout.simple_list_item_1, arrayList);
-//        listView.setAdapter(arrayAdapter);
-
-
         // IGNORE ALL OF THIS
         mQueue = Volley.newRequestQueue(this);
         String url = "https://corona.lmao.ninja/countries";
@@ -177,8 +164,6 @@ public class CountryList extends AppCompatActivity {
                         c[i] = new Country();
                         c[i].setItemId(i);
                         c[i].setFlagUrl(countryInfo.getString("flag"));
-                        //Picasso.get().load(c[i].getFlagUrl()).into(tempFlag);
-                        c[i].setFlag(tempFlag);
                         c[i].setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
                         c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));
                         c[i].setCountryname(nestedObj.getString("country"));

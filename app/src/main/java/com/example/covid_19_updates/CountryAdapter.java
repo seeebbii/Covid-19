@@ -53,6 +53,8 @@ public class CountryAdapter extends ArrayAdapter<Country>
         return convertView;
     }
 
+
+
     @Override
     public int getCount() {
         return list.size();
