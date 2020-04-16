@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -56,6 +57,7 @@ public class CountryList extends AppCompatActivity {
     public static Country[] c = new Country[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     public  ProgressDialog dialog;
     public  SearchView searchView;
+    public ImageView tempFlag;
     public static ImageView [] flagImages = new ImageView[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,7 @@ public class CountryList extends AppCompatActivity {
                 ArrayList<Country> filteredList = new ArrayList<>();
                 for (int i = 0 ; i < c.length; i++){
                     if(c[i].getCountryname().toLowerCase().startsWith(newText.toLowerCase())){
+                        Log.i("countryName", c[i].getCountryname() + " " + c[i].getItemId());
                         filteredList.add(c[i]);
                     }
                 }
@@ -174,6 +177,8 @@ public class CountryList extends AppCompatActivity {
                         c[i] = new Country();
                         c[i].setItemId(i);
                         c[i].setFlagUrl(countryInfo.getString("flag"));
+                        //Picasso.get().load(c[i].getFlagUrl()).into(tempFlag);
+                        c[i].setFlag(tempFlag);
                         c[i].setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
                         c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));
                         c[i].setCountryname(nestedObj.getString("country"));

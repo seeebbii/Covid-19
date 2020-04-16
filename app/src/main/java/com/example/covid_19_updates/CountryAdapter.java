@@ -43,7 +43,10 @@ public class CountryAdapter extends ArrayAdapter<Country>
         TextView countryname = convertView.findViewById(R.id.countryname);
         img = convertView.findViewById(R.id.imgview);
 
+        parent.findViewById(position);
+
         countryname.setText(list.get(position).getCountryname());
+
         Picasso.get().load(CountryList.c[position].getFlagUrl()).into(img);
 //        CountryList.c[position].setItemId(position);
 

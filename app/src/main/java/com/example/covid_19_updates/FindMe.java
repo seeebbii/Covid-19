@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,8 @@ public class FindMe extends AppCompatActivity {
     public String ipAdress = "";
     public Button correctBtn;
     public Button incorrectBtn;
-    public ListView listView;
+    public TextView countryName;
+    public ImageView flagImg;
     public Country c;
 
     @Override
@@ -52,7 +54,8 @@ public class FindMe extends AppCompatActivity {
         setContentView(R.layout.activity_find_me);
         mQueue = Volley.newRequestQueue(FindMe.this);
 
-        listView = findViewById(R.id.listView);
+        countryName = findViewById(R.id.country);
+        flagImg = findViewById(R.id.flagImg);
         arrayList = new ArrayList<Country>();
         correctBtn = findViewById(R.id.correctBtn);
         incorrectBtn = findViewById(R.id.incorrectBtn);
@@ -93,29 +96,29 @@ public class FindMe extends AppCompatActivity {
         });
 
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final PrettyDialog prettyDialog =  new PrettyDialog(FindMe.this);
-                prettyDialog.setTitle(adapter.getItem(position).getCountryname())
-                        .setMessage("Total Cases: " + adapter.getItem(position).getTotalcase() + "\n" + "Total Deaths: " + adapter.getItem(position).getTotaldeaths()
-                                + "\n" + "Active Cases: " + adapter.getItem(position).getActivecases() + "\n" + "Total Recovered: " + adapter.getItem(position).getTotalrecovered())
-                        .setIcon(R.drawable.searchbutton)
-                        .addButton(
-                                "OK",     // button text
-                                R.color.pdlg_color_white,  // button text color
-                                R.color.pdlg_color_green,  // button background color
-                                new PrettyDialogCallback() {  // button OnClick listener
-                                    @Override
-                                    public void onClick() {
-                                        // Do what you gotta do
-                                        prettyDialog.dismiss();
-                                    }
-                                }
-                        )
-                        .show();
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                final PrettyDialog prettyDialog =  new PrettyDialog(FindMe.this);
+//                prettyDialog.setTitle(adapter.getItem(position).getCountryname())
+//                        .setMessage("Total Cases: " + adapter.getItem(position).getTotalcase() + "\n" + "Total Deaths: " + adapter.getItem(position).getTotaldeaths()
+//                                + "\n" + "Active Cases: " + adapter.getItem(position).getActivecases() + "\n" + "Total Recovered: " + adapter.getItem(position).getTotalrecovered())
+//                        .setIcon(R.drawable.searchbutton)
+//                        .addButton(
+//                                "OK",     // button text
+//                                R.color.pdlg_color_white,  // button text color
+//                                R.color.pdlg_color_green,  // button background color
+//                                new PrettyDialogCallback() {  // button OnClick listener
+//                                    @Override
+//                                    public void onClick() {
+//                                        // Do what you gotta do
+//                                        prettyDialog.dismiss();
+//                                    }
+//                                }
+//                        )
+//                        .show();
+//            }
+//        });
     }
 
     private void parseJson(String url, String ip){
@@ -167,9 +170,8 @@ public class FindMe extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                adapter = new CountryAdapter(FindMe.this, arrayList);
-                listView.setAdapter(adapter);
+                Picasso.get().load(c.getFlagUrl()).into(flagImg);
+                countryName.setText(c.getCountryname());
 
             }
         }, new Response.ErrorListener() {
