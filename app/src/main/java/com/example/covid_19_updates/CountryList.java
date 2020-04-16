@@ -56,6 +56,7 @@ public class CountryList extends AppCompatActivity {
     public static Country[] c = new Country[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     public  ProgressDialog dialog;
     public  SearchView searchView;
+    public static ImageView [] flagImages = new ImageView[Integer.parseInt((String) MainActivity.affectedCountries.getText())];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,7 +138,6 @@ public class CountryList extends AppCompatActivity {
                         prettyDialog.setTitle(anotherAdapter.getItem(position).getCountryname())
                                 .setMessage("Total Cases: " + anotherAdapter.getItem(position).getTotalcase() + "\n" + "Total Deaths: " + anotherAdapter.getItem(position).getTotaldeaths()
                                         + "\n" + "Active Cases: " + anotherAdapter.getItem(position).getActivecases() + "\n" + "Total Recovered: " + anotherAdapter.getItem(position).getTotalrecovered())
-                                .setIcon(R.drawable.searchbutton)
                                 .addButton(
                                         "OK",     // button text
                                         R.color.pdlg_color_white,  // button text color
@@ -172,6 +172,7 @@ public class CountryList extends AppCompatActivity {
                         JSONObject nestedObj = response.getJSONObject(i);
                         JSONObject countryInfo = nestedObj.getJSONObject("countryInfo");
                         c[i] = new Country();
+                        c[i].setItemId(i);
                         c[i].setFlagUrl(countryInfo.getString("flag"));
                         c[i].setTotalcase(Integer.parseInt(nestedObj.getString("cases")));
                         c[i].setActivecases(Integer.parseInt(nestedObj.getString("active")));

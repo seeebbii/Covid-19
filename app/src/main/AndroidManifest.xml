@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/covidlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FindMe"></activity>
+        <activity android:name=".FindMe"/>
         <activity android:name=".CountryList" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
