@@ -66,7 +66,7 @@ public class CountryList extends AppCompatActivity {
         arrayList = new ArrayList<Country>();
         // IGNORE ALL OF THIS
         mQueue = Volley.newRequestQueue(this);
-        String url = "https://corona.lmao.ninja/countries";
+        String url = "https://corona.lmao.ninja/v2/countries";
         jsonArrReqString(url);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

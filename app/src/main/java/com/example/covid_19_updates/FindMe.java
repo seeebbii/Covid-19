@@ -95,30 +95,29 @@ public class FindMe extends AppCompatActivity {
             }
         });
 
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                final PrettyDialog prettyDialog =  new PrettyDialog(FindMe.this);
-//                prettyDialog.setTitle(adapter.getItem(position).getCountryname())
-//                        .setMessage("Total Cases: " + adapter.getItem(position).getTotalcase() + "\n" + "Total Deaths: " + adapter.getItem(position).getTotaldeaths()
-//                                + "\n" + "Active Cases: " + adapter.getItem(position).getActivecases() + "\n" + "Total Recovered: " + adapter.getItem(position).getTotalrecovered())
-//                        .setIcon(R.drawable.searchbutton)
-//                        .addButton(
-//                                "OK",     // button text
-//                                R.color.pdlg_color_white,  // button text color
-//                                R.color.pdlg_color_green,  // button background color
-//                                new PrettyDialogCallback() {  // button OnClick listener
-//                                    @Override
-//                                    public void onClick() {
-//                                        // Do what you gotta do
-//                                        prettyDialog.dismiss();
-//                                    }
-//                                }
-//                        )
-//                        .show();
-//            }
-//        });
+        correctBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final PrettyDialog prettyDialog =  new PrettyDialog(FindMe.this);
+                prettyDialog.setTitle(c.getCountryname())
+                        .setMessage("Total Cases: " + c.getTotalcase() + "\n" + "Total Deaths: " + c.getTotaldeaths()
+                                + "\n" + "Active Cases: " + c.getActivecases() + "\n" + "Total Recovered: " + c.getTotalrecovered())
+                        .setIcon(R.drawable.searchbutton)
+                        .addButton(
+                                "OK",     // button text
+                                R.color.pdlg_color_white,  // button text color
+                                R.color.pdlg_color_green,  // button background color
+                                new PrettyDialogCallback() {  // button OnClick listener
+                                    @Override
+                                    public void onClick() {
+                                        // Do what you gotta do
+                                        prettyDialog.dismiss();
+                                    }
+                                }
+                        )
+                        .show();
+            }
+        });
     }
 
     private void parseJson(String url, String ip){
@@ -135,7 +134,7 @@ public class FindMe extends AppCompatActivity {
                 } catch (JSONException | InterruptedException e) {
                     e.printStackTrace();
                 }
-                countryFetch("https://corona.lmao.ninja/countries/");
+                countryFetch("https://corona.lmao.ninja/v2/countries/");
             }
         }, new Response.ErrorListener() {
             @Override

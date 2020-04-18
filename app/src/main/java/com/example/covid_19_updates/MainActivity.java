@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         mQueue = Volley.newRequestQueue(this);
 
-        jsonParse("https://corona.lmao.ninja/all");
+        jsonParse("https://corona.lmao.ninja/v2/all");
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
